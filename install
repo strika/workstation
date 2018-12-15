@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+install_packages() {
+  echo "Download package lists"
+  sudo apt-get update -q -y 2>&1 >/dev/null
+
+  echo "Update packages"
+  sudo apt-get dist-upgrade -y 2>&1 >/dev/null
+
+  echo "Install packages"
+  sudo apt-get install -y vlc 2>&1 >/dev/null
+}
+
+do_all() {
+  install_packages
+}
+
+do_all
