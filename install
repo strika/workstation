@@ -11,8 +11,16 @@ install_packages() {
   sudo apt-get install -y vlc 2>&1 >/dev/null
 }
 
+install_gnome_terminal_nord_theme() {
+  wget https://raw.githubusercontent.com/arcticicestudio/nord-gnome-terminal/develop/src/nord.sh
+  chmod +x nord.sh
+  ./nord.sh
+  rm nord.sh
+}
+
 do_all() {
   install_packages
+  install_gnome_terminal_nord_theme
 }
 
 do_all
