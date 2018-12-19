@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+here="$(dirname "$0")"
+here="$(cd "$here"; pwd)"
+
 install_packages() {
   echo "Download package lists"
   sudo apt-get update -q -y 2>&1 >/dev/null
@@ -12,6 +15,15 @@ install_packages() {
        virtualbox mc deja-dup duplicity snapd deluge chromium-browser \
        2>&1 >/dev/null
   sudo fc-cache -fv
+}
+
+install_local_bin() {
+  mkdir -p "${HOME}/.local/bin"
+
+  for file in "${here}/bin"/*; do
+    name="$(basename "$file")"
+    ln -sfv "$file" "${HOME}/.local/bin/${name}"
+  done
 }
 
 install_gnome_terminal_nord_theme() {
@@ -30,6 +42,7 @@ install_resilio_sync() {
 
 do_all() {
   install_packages
+  install_local_bin
   install_gnome_terminal_nord_theme
   install_resilio_sync
 }
